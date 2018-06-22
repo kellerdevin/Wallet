@@ -10,6 +10,7 @@ import QRScanController from './containers/QRScanController';
 import ViewNotification from './components/ViewNotification';
 import ProdPage from './containers/ProdPage'
 import BlockInfo from './containers/BlockInfo'
+import EthExplorer from './containers/EthExplorer'
 
 export const screensMap = {
   AccountsController,
@@ -20,7 +21,8 @@ export const screensMap = {
   QRScanController,
   ViewNotification,
   ProdPage,
-  BlockInfo
+  BlockInfo,
+  EthExplorer
 };
 
 export function registerScreens(store, Provider) {

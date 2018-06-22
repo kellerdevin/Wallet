@@ -32,7 +32,7 @@ export class BlockInfo extends Component {
                     Block Info
             </Text >
                 <Text style={[styles.hash, styles.all]}>
-                    ETH Pop Link:
+                    ETH EXPLORER:
                 <Text style={[styles.blue,]}>  view</Text>
                 </Text>
                 <Text style={[styles.all, styles.hash]}>

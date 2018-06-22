@@ -11,19 +11,25 @@ function init() {
   Navigation.startTabBasedApp({
     tabs: [
       {
-        title: 'Product',
+        title: 'TWO.IO',
         label: 'Product',
         screen: 'ProdPage',
         icon: Icons.receive,
       },
       {
-        title: 'two.io',
+        title: 'TWO.IO',
         label: 'BlockInfo',
         screen: 'BlockInfo',
         icon: Icons.receive,
       },
       {
-        title: 'Accounts',
+        title: 'TWO.IO',
+        label: 'EthExplorer',
+        screen: 'EthExplorer',
+        icon: Icons.accounts,
+      },
+      {
+        title: 'TWO.IO',
         label: 'Accounts',
         screen: 'AccountsController',
         icon: Icons.accounts,
@@ -39,7 +45,7 @@ function init() {
     animationType: 'slide-down',
     appStyle: {
       orientation: 'portrait',
-      navBarTextColor: Colors.Grey50, // change the text color of the title (remembered across pushes)
+      navBarTextColor: Colors.BlackAlmost, // change the text color of the title (remembered across pushes)
       navBarBackgroundColor: Colors.White,
       navBarButtonColor: Colors.Red,
       screenBackgroundColor: Colors.Grey10,

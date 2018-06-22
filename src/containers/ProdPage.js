@@ -1,5 +1,6 @@
 import React, { Component, PropTypes} from 'react';
 import { AppRegistry, StyleSheet, Text, TouchableOpacity, View, Image, NavigatorIOS, Button } from 'react-native';
+import twoapi from '../util/routes/twoapi'
 
 import { connect } from 'react-redux';
 
@@ -9,6 +10,15 @@ function mapStateToProps(state) {
 }
 
 export class ProdPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      blockinfo: '',
+      avatar: '',
+    }
+  }
+
+
   render() {
     return (
       <View style={{ backgroundColor: 'white' }}>
