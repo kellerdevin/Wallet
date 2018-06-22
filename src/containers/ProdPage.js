@@ -1,6 +1,8 @@
 import React, { Component, } from 'react';
 import { AppRegistry, StyleSheet, Text, TouchableOpacity, View, Image, NavigatorIOS, Button } from 'react-native';
 
+import { connect } from 'react-redux';
+
 class ProdPage extends Component {
 
   render() {

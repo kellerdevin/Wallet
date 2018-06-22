@@ -1,8 +1,8 @@
 const express = require('express');
-const api2 = express();
+const api = express();
 
 const productRoutes = require('./products');
 
-api2.use('/products', productRoutes);
+api.use('/products', productRoutes);
 
-module.exports = api2;
+module.exports = api;
