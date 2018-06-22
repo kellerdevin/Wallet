@@ -13,7 +13,13 @@ function init() {
       {
         title: 'Product',
         label: 'Product',
-        screen: 'AccountsController',
+        screen: 'ProdPage',
+        icon: Icons.receive,
+      },
+      {
+        title: 'two.io',
+        label: 'BlockInfo',
+        screen: 'BlockInfo',
         icon: Icons.receive,
       },
       {
