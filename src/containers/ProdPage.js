@@ -1,6 +1,7 @@
 import React, { Component, PropTypes} from 'react';
 import { AppRegistry, StyleSheet, Text, TouchableOpacity, View, Image, NavigatorIOS, Button } from 'react-native';
-import twoapi from '../util/routes/twoapi'
+import api from '../util/routes/api'
+
 
 import { connect } from 'react-redux';
 
@@ -15,18 +16,53 @@ export class ProdPage extends Component {
     this.state = {
       blockinfo: '',
       avatar: '',
+      prodTitle: '',
+      subTitle: '',
+      prodimg: '',
+      RAP1T: '',
+      RAP1ST: '',
+      RAP1img: '',
+      RAP2T: '',
+      RAP2ST: '',
+      RAP2img: '',
+      RAP3T: '',
+      RAP3ST: '',
+      RAP3img: '',
     }
+  }
+
+  componentDidMount() {
+    api.twoApi().then((res) => {
+      this.setState({
+        blockinfo: res.blockinfo,
+        avatar: res.avatar,
+        prodTitle: res.prodTitle,
+        subTitle: res.subTitle,
+        prodimg: res.prodimg,
+        RAP1T: res.RAP1T,
+        RAP1ST: res.RAP1ST,
+        RAP1img: res.RAP1img,
+        RAP2T: res.RAP2T,
+        RAP2ST: res.RAP2ST,
+        RAP2img: res.RAP2img,
+        RAP3T: res.RAP3T,
+        RAP3ST: res.RAP3ST,
+        RAP3img: res.RAP3img,
+      })
+    })
+      .catch((error) => {
+        console.error(error)
+      })
   }
 
 
   render() {
     return (
       <View style={{ backgroundColor: 'white' }}>
-      <View style={{ backgroundColor: 'white' }}>
         <View style={{ flexDirection: "row" }}>
           <Text style={[styles.header, styles.all,]}>Wallet                             {'\n'}
             <Text style={[styles.hash, styles.all]}>
-              0x627306090abab3a6e140...
+                {this.state.blockinfo}
               <Text style={[styles.copy]}>
                 COPY
               </Text>
@@ -35,42 +71,38 @@ export class ProdPage extends Component {
           </Text>
           <Image
             style={{ width: 64, height: 64, borderRadius: 32 }}
-            source={{ url: 'https://o.aolcdn.com/images/dims?quality=100&image_uri=http%3A%2F%2Fwww.blogcdn.com%2Fwww.engadget.com%2Fmedia%2F2013%2F03%2F2scanadus-walter-de-brouwer-backstage-at-expand-video.jpg&client=cbc79c14efcebee57402&signature=42294b1a66cf7ca9639bba7dcb8b7d48339e3825' }}
+              source={{ url: this.state.avatar }}
           />
         </View>
         <View style={{ width: 500, height: 1, backgroundColor: 'gray' }} />
-      </View>
 
         <View style={{ width: 500, height: 5, backgroundColor: 'white' }} />
         <Text style={[styles.blue, styles.newProd, styles.all]}>NEW PRODUCT</Text>
-        <Text style={[styles.prodTitle, styles.all]}>2016 Louis Vuitton Keepall</Text>
-        <Text style={[styles.subTitle, styles.gray, styles.all]}>Classic Monogram</Text>
-        <View>
-              <Image
-                style={{
-                  width: 200,
-                  height: 200,
-                  alignSelf: 'center',
-                  paddingBottom: 5,
-                }}
-                source={{ uri: 'https://a.1stdibscdn.com/archivesE/upload/1121189/v_34701811510039784334/3470181_master.jpg?width=500' }}
-              />
-
-        </View>
+        <Text style={[styles.prodTitle, styles.all]}>{this.state.prodTitle}</Text>
+        <Text style={[styles.subTitle, styles.gray, styles.all]}>{this.state.subTitle}</Text>
+          <Image
+            style={{
+              width: 200,
+              height: 200,
+              alignSelf: 'center',
+              paddingBottom: 5,
+            }}
+            source={{ uri: 'https://a.1stdibscdn.com/archivesE/upload/1121189/v_34701811510039784334/3470181_master.jpg?width=500' }}
+          />
         <View style={{ width: 500, height: 1, backgroundColor: 'gray', }} />
-        <View>
           <View style={{ width: 500, height: 10, backgroundColor: 'white' }} />
           <Text style={[styles.recentAdd, styles.bold, styles.all]}>Recent Additions
 
            <Text style={[styles.seeAll, styles.blue,]}>                         See All</Text>
             <View style={{ width: 500, height: 5, backgroundColor: 'white' }} />
           </Text>
-        </View>
         <View style={{ flexDirection: "row", }}>
+        <View>
           <Image
             style={styles.rA}
-            source={{ uri: 'https://www.laingsuk.com/media/catalog/product/cache/1/image/1200x/9df78eab33525d08d6e5fb8d27136e95/0/3/0350020091_2.jpg' }}
+            source={{ url: this.state.RAP1img }}
           />
+        </View>
           <Text style={[styles.rat]}>
             {'\n'}Jaeger-LeCoultre Polaris {'\n'}
             <Text style={[styles.rast,]}>
@@ -84,7 +116,7 @@ export class ProdPage extends Component {
 
           <Image
             style={styles.rA}
-            source={{ uri: 'https://item5.tradesy.com/images/hermes-birkin-30cm-epsom-gold-hardware-off-white-summer-a-stamp-craie-leather-tote-21697794-0-1.jpg?width=720&height=960' }}
+            source={{ url: this.state.RAP2img }}
           />
           <Text style={[styles.rat]}>
             {'\n'} Hermes Birkin                    {'\n'}
@@ -99,7 +131,7 @@ export class ProdPage extends Component {
 
           <Image
             style={styles.rA}
-            source={{ uri: 'https://select-orlando.com/wp-content/uploads/2017/11/mWHITEBACKGROUND.jpg' }}
+            source={{ url: this.state.RAP3img }}
           />
           <Text style={[styles.rat]}>
             {'\n'}Louis Vuitton / Supreme {'\n'}
@@ -111,7 +143,7 @@ export class ProdPage extends Component {
           </Text>
 
         </View>
-      </View>
+        </View>
     );
   }
 }

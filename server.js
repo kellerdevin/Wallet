@@ -1,5 +1,5 @@
 const http = require('http');
-const api = require('./src/util/routes/api');
+const api = require('./src/util/routes/api2');
 
 const port = process.env.PORT || 3000;
 

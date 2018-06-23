@@ -1,8 +1,8 @@
-const express = require('express');
-const api = express();
-
-const productRoutes = require('./products');
-
-api.use('/products', productRoutes);
+const api = {
+    twoApi() {
+        const url = 'http://localhost:3000/products';
+        return fetch(url).then((res) => res.json())
+    }
+};
 
 module.exports = api;
