@@ -69,10 +69,6 @@ export class ProdPage extends Component {
               <Text>                              </Text>
             </Text>
           </Text>
-          <Image
-            style={{ width: 64, height: 64, borderRadius: 32 }}
-              source={{ url: this.state.avatar }}
-          />
         </View>
         <View style={{ width: 500, height: 1, backgroundColor: 'gray' }} />
 
@@ -82,8 +78,8 @@ export class ProdPage extends Component {
         <Text style={[styles.subTitle, styles.gray, styles.all]}>{this.state.subTitle}</Text>
           <Image
             style={{
-              width: 200,
-              height: 200,
+              width: 180,
+              height: 180,
               alignSelf: 'center',
               paddingBottom: 5,
             }}
@@ -185,7 +181,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   recentAdd: {
-    fontSize: 16,
+    fontSize: 15,
     paddingLeft: 10,
   },
   seeAll: {
@@ -194,8 +190,8 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
   },
   rA: {
-    width: 90,
-    height: 80,
+    width: 75,
+    height: 75,
     paddingBottom: 1,
   },
   rat: {
@@ -227,15 +223,11 @@ const styles = StyleSheet.create({
     borderRadius: 30
   },
 
-  profile: {
-    width: 70,
-    height: 60,
-  },
   all: {
     marginLeft: 20,
   },
   header: {
-    fontSize: 32,
+    fontSize: 25,
   },
   bold: {
     fontWeight: 'bold',
@@ -253,10 +245,10 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   prodTitle: {
-    fontSize: 23
+    fontSize: 20
   },
   subTitle: {
-    fontSize: 18,
+    fontSize: 16,
   },
   recentAdd: {
     fontSize: 22,
@@ -267,8 +259,8 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
   },
   rA: {
-    width: 90,
-    height: 90,
+    width: 80,
+    height: 80,
     paddingBottom: 1,
   },
   rat: {
@@ -297,10 +289,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 30,
     fontSize: 16,
-  },
-  profile: {
-    width: 70,
-    height: 60,
   },
   header: {
     fontSize: 23,
