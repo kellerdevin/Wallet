@@ -35,7 +35,6 @@ export class ProdPage extends Component {
     api.twoApi().then((res) => {
       this.setState({
         blockinfo: res.blockinfo,
-        avatar: res.avatar,
         prodTitle: res.prodTitle,
         subTitle: res.subTitle,
         prodimg: res.prodimg,
@@ -191,7 +190,7 @@ const styles = StyleSheet.create({
   },
   rA: {
     width: 75,
-    height: 75,
+    height: 80,
     paddingBottom: 1,
   },
   rat: {
