@@ -52,21 +52,21 @@ function mapStateToProps(state) {
 class AccountController extends Component {
   static propTypes = {
     account: PropTypes.object.isRequired,
-    transactions: PropTypes.any.isRequired,
+    transactions: PropTypes.any.isRequired
   };
 
   constructor(props) {
     super(props);
 
     this.props.navigator.setButtons({
-      rightButtons: [{ id: 'delete', title: 'Delete' }],
+      rightButtons: [{ id: "delete", title: "Delete" }]
     });
 
     this.props.navigator.setOnNavigatorEvent(event => {
-      if (event.id === 'delete') {
+      if (event.id === "delete") {
         //Had some timing issues with required props - Clean this up
         Navigation.pop(this.props.navigator);
-        this.props.dispatch(deleteAccount(this.props.account.get('address')));
+        this.props.dispatch(deleteAccount(this.props.account.get("address")));
       }
     });
   }
@@ -78,7 +78,7 @@ class AccountController extends Component {
 
   getTokens() {
     let balances = [];
-    let tokens = this.props.account.getIn(['info', 'tokens']);
+    let tokens = this.props.account.getIn(["info", "tokens"]);
 
     if (!tokens) {
       return null;
@@ -87,12 +87,12 @@ class AccountController extends Component {
     tokens.forEach(token => {
       let view = (
         <Text
-          key={token.getIn(['tokenInfo', 'symbol'])}
+          key={token.getIn(["tokenInfo", "symbol"])}
           style={{ color: Colors.BlackAlmost }}
         >
-          {Number(token.get('balance')) / 100 +
-            ' ' +
-            token.getIn(['tokenInfo', 'symbol'])}
+          {Number(token.get("balance")) / 100 +
+            " " +
+            token.getIn(["tokenInfo", "symbol"])}
         </Text>
       );
       balances.push(view);
@@ -102,7 +102,9 @@ class AccountController extends Component {
   }
 
   render() {
-    return (
+    switch (this.state.loggedIn) {
+      case true:
+    return
       <ScrollView style={{ flex: 5 }}>
         <View style={{ flex: 2 }}>
           <Text style={{ color: Colors.BlackAlmost, margin: 5, fontSize: 15 }}>
@@ -111,81 +113,81 @@ class AccountController extends Component {
           <View
             style={[
               styles.wrapper,
-              { backgroundColor: Colors.White, padding: 10 },
+              { backgroundColor: Colors.White, padding: 10 }
             ]}
           >
             <View>
               <View
-                style={{ flexDirection: 'row', alignItems: 'center', flex: 6 }}
+                style={{ flexDirection: "row", alignItems: "center", flex: 6 }}
               >
                 <Blockies
-                  blockies={this.props.account.get('address')} //string content to generate icon
+                  blockies={this.props.account.get("address")} //string content to generate icon
                   size={50} // blocky icon size
                   style={{
                     width: 50,
                     height: 50,
                     backgroundColor: Colors.White,
-                    flex: 1,
+                    flex: 1
                   }} // style of the view will wrap the icon
                 />
               </View>
             </View>
             <View
               style={{
-                flexDirection: 'row',
-                alignItems: 'center',
+                flexDirection: "row",
+                alignItems: "center",
                 flex: 6,
-                marginTop: 10,
+                marginTop: 10
               }}
             >
               <View style={{ flex: 5 }}>
                 <Text style={styles.balance}>Balance</Text>
                 <Text style={{ color: Colors.BlackAlmost }}>
-                  {this.props.account.getIn(['info', 'ETH', 'balance']) +
-                    ' ETH'}
+                  {this.props.account.getIn(["info", "ETH", "balance"]) +
+                    " ETH"}
                 </Text>
                 {this.getTokens()}
               </View>
               <View>
                 <TouchableOpacity
                   onPress={() => {
-                    Clipboard.set(this.props.account.get('address'));
+                    Clipboard.set(this.props.account.get("address"));
                     Navigation.showNotification(
-                      'Address Copied to Clipboard',
-                      'success',
+                      "Address Copied to Clipboard",
+                      "success"
                     );
                   }}
                 >
                   <Ionicon
-                    name={'ios-copy-outline'}
+                    name={"ios-copy-outline"}
                     size={40}
                     color={Colors.Green}
                   />
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    Navigation.showModal('QRView', {
-                      text: this.props.account.get('address'),
-                      title: this.props.account.get('name'),
+                    Navigation.showModal("QRView", {
+                      text: this.props.account.get("address"),
+                      title: this.props.account.get("name")
                     });
                   }}
                 >
-                  <FontAwesome name={'qrcode'} size={40} color={Colors.Green} />
+                  <FontAwesome name={"qrcode"} size={40} color={Colors.Green} />
                 </TouchableOpacity>
               </View>
             </View>
             <View
               style={{
-                flexDirection: 'row',
-                alignItems: 'center',
+                flexDirection: "row",
+                alignItems: "center",
                 flex: 6,
-                marginTop: 10,
+                marginTop: 10
               }}
             >
               <View style={{ flex: 5 }}>
                 <Text style={styles.address}>Address</Text>
                 <Text style={{ color: Colors.BlackAlmost }}>
-                  {this.props.account.get('address')}
+                  {this.props.account.get("address")}
                 </Text>
               </View>
             </View>
@@ -197,11 +199,11 @@ class AccountController extends Component {
             transactions={this.props.transactions}
             account={this.props.account}
             onSelect={transaction => {
-              Navigation.push(this.props.navigator, 'TransactionController', {
+              Navigation.push(this.props.navigator, "TransactionController", {
                 passProps: {
                   transaction: transaction,
-                  account: this.props.account,
-                },
+                  account: this.props.account
+                }
               });
             }}
           />
@@ -210,17 +212,21 @@ class AccountController extends Component {
             tokens={this.props.tokens}
             account={this.props.account}
             onSelect={transaction => {
-              Navigation.push(this.props.navigator, 'TransactionController', {
+              Navigation.push(this.props.navigator, "TransactionController", {
                 passProps: {
                   transaction: transaction,
-                  account: this.props.account,
-                },
+                  account: this.props.account
+                }
               });
             }}
           />
         </ScrollableTabView>
       </ScrollView>
-    );
+      case false:
+      return <LoginForm />;
+      default:
+        return <Spinner size="large" />;
+    }
   }
 }
 

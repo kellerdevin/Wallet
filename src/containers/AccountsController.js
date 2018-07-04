@@ -2,7 +2,6 @@
 
 import React, { Component, PropTypes } from 'react';
 import {
-  Button,
   View,
   Text,
   ListView,
@@ -16,6 +15,9 @@ import Navigation from '../Navigation';
 import Immutable from 'immutable';
 import Constants from '../util/Constants';
 import Colors from '../util/Colors';
+import firebase from "firebase";
+import { Header, Button, Spinner } from "../components/common/";
+import LoginForm from "../components/LoginForm";
 
 import {
   selectAccount,
@@ -39,25 +41,36 @@ function mapStateToProps(state) {
 }
 
 class AccountsController extends Component {
+  state = { loggedIn: null };
+  componentWillMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({ loggedIn: true });
+      } else {
+        this.setState({ loggedIn: false });
+      }
+    });
+  }
+
   static propTypes = {
-    accounts: PropTypes.any.isRequired,
+    accounts: PropTypes.any.isRequired
   };
 
   constructor(props) {
     super(props);
     const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2,
+      rowHasChanged: (r1, r2) => r1 !== r2
     });
     this.state = {
-      dataSource: ds.cloneWithRows(props.accounts),
+      dataSource: ds.cloneWithRows(props.accounts)
     };
 
     this.props.navigator.setButtons({
-      rightButtons: [{ id: 'scan', title: 'Scan' }],
+      rightButtons: [{ id: "scan", title: "Scan" }]
     });
 
     this.props.navigator.setOnNavigatorEvent(event => {
-      if (event.id === 'scan') {
+      if (event.id === "scan") {
         this.scanAccount();
       }
     });
@@ -66,7 +79,7 @@ class AccountsController extends Component {
   componentWillReceiveProps(nextProps) {
     console.log(nextProps.accounts);
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(nextProps.accounts),
+      dataSource: this.state.dataSource.cloneWithRows(nextProps.accounts)
     });
   }
 
@@ -79,7 +92,7 @@ class AccountsController extends Component {
       .dispatch(createAccount())
       .then(account => {
         this.props.dispatch(selectAccount(account.address)).then(accountId => {
-          Navigation.push(this.props.navigator, 'AccountController');
+          Navigation.push(this.props.navigator, "AccountController");
         });
       })
       .catch(error => {
@@ -88,11 +101,18 @@ class AccountsController extends Component {
   }
 
   scanAccount() {
-    Navigation.showModal('QRScanController');
+    Navigation.showModal("QRScanController");
   }
 
   render() {
-    return <View>{this.getAccountsOrPlaceholder()}</View>;
+    switch (this.state.loggedIn) {
+      case true:
+        return <View>{this.getAccountsOrPlaceholder()}</View>;
+      case false:
+        return <LoginForm />;
+      default:
+        return <Spinner size="large" />;
+    }
   }
 
   getAccountsOrPlaceholder() {
@@ -116,7 +136,7 @@ class AccountsController extends Component {
             }}
             renderSectionHeader={() => {
               return (
-                <Text key={'header'} style={styles.header}>
+                <Text key={"header"} style={styles.header}>
                   Accounts
                 </Text>
               );
@@ -125,22 +145,22 @@ class AccountsController extends Component {
               rowData,
               sectionID: number,
               rowID: number,
-              highlightRow,
+              highlightRow
             ) => {
               return (
                 <AccountListRow
-                  name={rowData.get('name') ? rowData.get('name') : 'no name'}
-                  address={rowData.get('address')}
-                  key={rowData.get('address')}
-                  balance={rowData.getIn(['info', 'ETH', 'balance'])}
+                  name={rowData.get("name") ? rowData.get("name") : "no name"}
+                  address={rowData.get("address")}
+                  key={rowData.get("address")}
+                  balance={rowData.getIn(["info", "ETH", "balance"])}
                   onPress={() => {
                     highlightRow(sectionID, rowID);
                     this.props
-                      .dispatch(selectAccount(rowData.get('address')))
+                      .dispatch(selectAccount(rowData.get("address")))
                       .then(account => {
                         Navigation.push(
                           this.props.navigator,
-                          'AccountController',
+                          "AccountController"
                         );
                       });
                   }}

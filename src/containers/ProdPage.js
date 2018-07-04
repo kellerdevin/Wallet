@@ -64,7 +64,7 @@ class ProdPage extends Component {
            });
          }
 
-         renderContent() {
+         render() {
            switch (this.state.loggedIn) {
              case true:
                return <View style={{ backgroundColor: "white" }}>
@@ -164,12 +164,6 @@ class ProdPage extends Component {
              default:
                return <Spinner size="large" />;
            }
-         }
-         render() {
-           return <View>
-               <Header headerText="Authentication" />
-               {this.renderContent()}
-             </View>;
          }
        }
 
