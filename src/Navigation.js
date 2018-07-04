@@ -2,6 +2,7 @@ import { Platform } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import Icons from './util/Icons';
 import Colors from './util/Colors';
+import Auth2 from "./containers/Auth2";
 
 // ------------------------
 // INIT

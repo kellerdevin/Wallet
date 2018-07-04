@@ -1,6 +1,9 @@
 import React, { Component, PropTypes} from 'react';
-import { AppRegistry, StyleSheet, Text, TouchableOpacity, View, Image, NavigatorIOS, Button } from 'react-native';
+import { AppRegistry, StyleSheet, Text, TouchableOpacity, View, Image, NavigatorIOS, } from 'react-native';
 import api from '../util/routes/api'
+import firebase from "firebase";
+import { Header, Button, Spinner } from '../components/common/'
+import LoginForm from "../components/LoginForm";
 
 
 import { connect } from 'react-redux';
@@ -10,138 +13,165 @@ function mapStateToProps(state) {
   return {};
 }
 
-export class ProdPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      blockinfo: '',
-      avatar: '',
-      prodTitle: '',
-      subTitle: '',
-      prodimg: '',
-      RAP1T: '',
-      RAP1ST: '',
-      RAP1img: '',
-      RAP2T: '',
-      RAP2ST: '',
-      RAP2img: '',
-      RAP3T: '',
-      RAP3ST: '',
-      RAP3img: '',
-    }
-  }
+class ProdPage extends Component {
+         state = { loggedIn: null };
+         constructor(props) {
+           super(props);
+           this.state = { blockinfo: "", avatar: "", prodTitle: "", subTitle: "", prodimg: "", RAP1T: "", RAP1ST: "", RAP1img: "", RAP2T: "", RAP2ST: "", RAP2img: "", RAP3T: "", RAP3ST: "", RAP3img: "" };
+         }
 
-  componentDidMount() {
-    api.twoApi().then((res) => {
-      this.setState({
-        blockinfo: res.blockinfo,
-        prodTitle: res.prodTitle,
-        subTitle: res.subTitle,
-        prodimg: res.prodimg,
-        RAP1T: res.RAP1T,
-        RAP1ST: res.RAP1ST,
-        RAP1img: res.RAP1img,
-        RAP2T: res.RAP2T,
-        RAP2ST: res.RAP2ST,
-        RAP2img: res.RAP2img,
-        RAP3T: res.RAP3T,
-        RAP3ST: res.RAP3ST,
-        RAP3img: res.RAP3img,
-      })
-    })
-      .catch((error) => {
-        console.error(error)
-      })
-  }
+         componentDidMount() {
+           api
+             .twoApi()
+             .then(res => {
+               this.setState({
+                 blockinfo: res.blockinfo,
+                 prodTitle: res.prodTitle,
+                 subTitle: res.subTitle,
+                 prodimg: res.prodimg,
+                 RAP1T: res.RAP1T,
+                 RAP1ST: res.RAP1ST,
+                 RAP1img: res.RAP1img,
+                 RAP2T: res.RAP2T,
+                 RAP2ST: res.RAP2ST,
+                 RAP2img: res.RAP2img,
+                 RAP3T: res.RAP3T,
+                 RAP3ST: res.RAP3ST,
+                 RAP3img: res.RAP3img
+               });
+             })
+             .catch(error => {
+               console.error(error);
+             });
+         }
 
+         componentWillMount() {
+           firebase.initializeApp({
+             apiKey: "AIzaSyAm8W1O7eCai0zaqaSLkheGElyLwajJ3JY",
+             authDomain: "auth-87f79.firebaseapp.com",
+             databaseURL: "https://auth-87f79.firebaseio.com",
+             projectId: "auth-87f79",
+             storageBucket: "auth-87f79.appspot.com",
+             messagingSenderId: "701060929041"
+           });
 
-  render() {
-    return (
-      <View style={{ backgroundColor: 'white' }}>
-        <View style={{ flexDirection: "row" }}>
-          <Text style={[styles.header, styles.all,]}>Wallet                             {'\n'}
-            <Text style={[styles.hash, styles.all]}>
-                {this.state.blockinfo}
-              <Text style={[styles.copy]}>
-                COPY
-              </Text>
-              <Text>                              </Text>
-            </Text>
-          </Text>
-        </View>
-        <View style={{ width: 500, height: 1, backgroundColor: 'gray' }} />
+           firebase.auth().onAuthStateChanged(user => {
+             if (user) {
+               this.setState({ loggedIn: true });
+             } else {
+               this.setState({ loggedIn: false });
+             }
+           });
+         }
 
-        <View style={{ width: 500, height: 5, backgroundColor: 'white' }} />
-        <Text style={[styles.blue, styles.newProd, styles.all]}>NEW PRODUCT</Text>
-        <Text style={[styles.prodTitle, styles.all]}>{this.state.prodTitle}</Text>
-        <Text style={[styles.subTitle, styles.gray, styles.all]}>{this.state.subTitle}</Text>
-          <Image
-            style={{
-              width: 180,
-              height: 180,
-              alignSelf: 'center',
-              paddingBottom: 5,
-            }}
-            source={{ uri: 'https://a.1stdibscdn.com/archivesE/upload/1121189/v_34701811510039784334/3470181_master.jpg?width=500' }}
-          />
-        <View style={{ width: 500, height: 1, backgroundColor: 'gray', }} />
-          <View style={{ width: 500, height: 10, backgroundColor: 'white' }} />
-          <Text style={[styles.recentAdd, styles.bold, styles.all]}>Recent Additions
+         renderContent() {
+           switch (this.state.loggedIn) {
+             case true:
+               return <View style={{ backgroundColor: "white" }}>
+                   <View style={{ flexDirection: "row" }}>
+                     <Text style={[styles.header, styles.all]}>
+                       Wallet {"\n"}
+                       <Text style={[styles.hash, styles.all]}>
+                         {this.state.blockinfo}
+                         <Text style={[styles.copy]}>COPY</Text>
+                         <Text> </Text>
+                       </Text>
+                     </Text>
+                   </View>
+                   <View style={{ width: 500, height: 1, backgroundColor: "gray" }} />
 
-           <Text style={[styles.seeAll, styles.blue,]}>                         See All</Text>
-            <View style={{ width: 500, height: 5, backgroundColor: 'white' }} />
-          </Text>
-        <View style={{ flexDirection: "row", }}>
-        <View>
-          <Image
-            style={styles.rA}
-            source={{ url: this.state.RAP1img }}
-          />
-        </View>
-          <Text style={[styles.rat]}>
-            {'\n'}Jaeger-LeCoultre Polaris {'\n'}
-            <Text style={[styles.rast,]}>
-              Chronograph, PINK GOLD          <Text style={[styles.views]}>   View    </Text>{'\n'}
-              {'\n'} {'\n'}
-              <View style={{ width: 500, height: 1, backgroundColor: 'grey' }} />
-            </Text>
-          </Text>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-
-          <Image
-            style={styles.rA}
-            source={{ url: this.state.RAP2img }}
-          />
-          <Text style={[styles.rat]}>
-            {'\n'} Hermes Birkin                    {'\n'}
-            <Text style={[styles.rast,]}>
-              30cm Craie Epsom Birkin          <Text style={[styles.views]}>   View    </Text>{'\n'}
-              {'\n'} {'\n'}
-              <View style={{ width: 500, height: 1, backgroundColor: 'grey' }} />
-            </Text>
-          </Text>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-
-          <Image
-            style={styles.rA}
-            source={{ url: this.state.RAP3img }}
-          />
-          <Text style={[styles.rat]}>
-            {'\n'}Louis Vuitton / Supreme {'\n'}
-            <Text style={[styles.rast]}>
-              Christopher Backpack PM        <Text style={[styles.views]}>   View    </Text>{'\n'}
-              {'\n'} {'\n'}
-              <View style={{ width: 500, height: 1, backgroundColor: 'grey' }} />
-            </Text>
-          </Text>
-
-        </View>
-        </View>
-    );
-  }
-}
+                   <View style={{ width: 500, height: 5, backgroundColor: "white" }} />
+                   <Text
+                     style={[styles.blue, styles.newProd, styles.all]}
+                   >
+                     NEW PRODUCT
+                   </Text>
+                   <Text style={[styles.prodTitle, styles.all]}>
+                     {this.state.prodTitle}
+                   </Text>
+                   <Text
+                     style={[styles.subTitle, styles.gray, styles.all]}
+                   >
+                     {this.state.subTitle}
+                   </Text>
+                   <Image style={{ width: 180, height: 180, alignSelf: "center", paddingBottom: 5 }} source={{ uri: "https://a.1stdibscdn.com/archivesE/upload/1121189/v_34701811510039784334/3470181_master.jpg?width=500" }} />
+                   <View style={{ width: 500, height: 1, backgroundColor: "gray" }} />
+                   <View style={{ width: 500, height: 10, backgroundColor: "white" }} />
+                   <Text style={[styles.recentAdd, styles.bold, styles.all]}>
+                     Recent Additions
+                     <Text style={[styles.seeAll, styles.blue]}>
+                       {" "}
+                       See All
+                     </Text>
+                     <View style={{ width: 500, height: 5, backgroundColor: "white" }} />
+                   </Text>
+                   <View style={{ flexDirection: "row" }}>
+                     <View>
+                       <Image style={styles.rA} source={{ url: this.state.RAP1img }} />
+                     </View>
+                     <Text style={[styles.rat]}>
+                       {"\n"}Jaeger-LeCoultre Polaris {"\n"}
+                       <Text style={[styles.rast]}>
+                         Chronograph, PINK GOLD <Text
+                           style={[styles.views]}
+                         >
+                           {" "}
+                           View{" "}
+                         </Text>
+                         {"\n"}
+                         {"\n"} {"\n"}
+                         <View style={{ width: 500, height: 1, backgroundColor: "grey" }} />
+                       </Text>
+                     </Text>
+                   </View>
+                   <View style={{ flexDirection: "row" }}>
+                     <Image style={styles.rA} source={{ url: this.state.RAP2img }} />
+                     <Text style={[styles.rat]}>
+                       {"\n"} Hermes Birkin {"\n"}
+                       <Text style={[styles.rast]}>
+                         30cm Craie Epsom Birkin <Text
+                           style={[styles.views]}
+                         >
+                           {" "}
+                           View{" "}
+                         </Text>
+                         {"\n"}
+                         {"\n"} {"\n"}
+                         <View style={{ width: 500, height: 1, backgroundColor: "grey" }} />
+                       </Text>
+                     </Text>
+                   </View>
+                   <View style={{ flexDirection: "row" }}>
+                     <Image style={styles.rA} source={{ url: this.state.RAP3img }} />
+                     <Text style={[styles.rat]}>
+                       {"\n"}Louis Vuitton / Supreme {"\n"}
+                       <Text style={[styles.rast]}>
+                         Christopher Backpack PM <Text
+                           style={[styles.views]}
+                         >
+                           {" "}
+                           View{" "}
+                         </Text>
+                         {"\n"}
+                         {"\n"} {"\n"}
+                         <View style={{ width: 500, height: 1, backgroundColor: "grey" }} />
+                       </Text>
+                     </Text>
+                   </View>
+                 </View>;
+             case false:
+               return <LoginForm />;
+             default:
+               return <Spinner size="large" />;
+           }
+         }
+         render() {
+           return <View>
+               <Header headerText="Authentication" />
+               {this.renderContent()}
+             </View>;
+         }
+       }
 
 const styles = StyleSheet.create({
   textStyle: {
