@@ -6,11 +6,26 @@ router.get('/', (req, res, next) => {
         {
             blockinfo: '0x627306090abab3a6e140...',
 
-            avatar: "https://o.aolcdn.com/images/dims?quality=100&image_uri=http%3A%2F%2Fwww.blogcdn.com%2Fwww.engadget.com%2Fmedia%2F2013%2F03%2F2scanadus-walter-de-brouwer-backstage-at-expand-video.jpg&client=cbc79c14efcebee57402&signature=42294b1a66cf7ca9639bba7dcb8b7d48339e3825",
-
             prodTitle: "2016 Louis Vuitton Keepall",
             subTitle: "Classic Monogram",
             prodimg: "https://a.1stdibscdn.com/archivesE/upload/1121189/v_34701811510039784334/3470181_master.jpg?width=500",
+            
+            TxHash: "0xfe3848c051023e29cc62843e090e5a5b849ec6eb8ad98bfc8e28af2551116701",
+            Status: "Success",
+            BlockHeight: "3484864 (5797 block confirmations)",
+            TimeStamp: "(Jun-21-2018 09:57:07 PM +UTC)",
+            From: "0x9c3e099eb426e48504b7dedfea66824668ec87e0",
+            For: "Contract 0x16c31228f6413043ac0e41e9617394906c7a21ac",
+            TokenTransfer: "2 ERC20 (Twoken Token) from 0x00000000000000... to 0x9c3e099eb426e4",
+            Value: '0 Ether ($0.00)',
+            GasLimit: '320854',
+            GasUsedByTxn: '213903',
+            GasPrice: '0.000000001 Ether (1 Gwei)',
+            ActualTxCostFee: "0.000213903 Ether ($0.000000)",
+            NoncePosition: "6 | {10}",
+            InputData: "/-ë@9Keepall 45 year: 2016, manufacturer: LV, date:6/21/2018",
+
+
 
             RAP1T: "Jaeger-LeCoultre Polaris",
             RAP1ST: "Chronograph, PINK GOLD",
@@ -27,7 +42,8 @@ router.get('/', (req, res, next) => {
             Hash: '0x5e4bb521e0b6c18bd40674474f4b1527...',
             toYou: '0x6bd2bd4fa7ec27ef0...',
             FromTrans: '0xb35f68a5d0da29ds2...',
-            To: '0x6bd2bd4fa7ec27ef0...',
+            TextTo: '0x6bd2bd4fa7ec27ef0...',
+
 
             DateToYou: '4/1/2018',
             DateTrans: '3/15/2017',

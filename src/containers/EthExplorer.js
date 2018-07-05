@@ -1,13 +1,23 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types'
-import { AppRegistry, StyleSheet, Text, TouchableOpacity, View, Image, NavigatorIOS, ScrollView } from 'react-native';
-import EthExplorerApi from "../util/routes/EthExplorerApi";
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+  NavigatorIOS,
+  ScrollView
+} from "react-native";
+import api from "../util/routes/api";
+import EthApi from "../util/routes/EthApi";
+import EthExplorerApi from "../util/routes/EthExplorerApi"
 import firebase from "firebase";
 import { Header, Button, Spinner } from "../components/common/";
 import LoginForm from "../components/LoginForm";
 
-import { connect } from 'react-redux';
-
+import { connect } from "react-redux";
 
 // state map
 function mapStateToProps(state) {
@@ -15,6 +25,27 @@ function mapStateToProps(state) {
 }
 
 class EthExplorer extends Component {
+  state = { loggedIn: null };
+  constructor(props) {
+    super(props);
+    this.state = {
+        TxHash: "",
+        Status: '',
+        BlockHeight: '',
+        TimeStamp: '',
+          From: '',
+          For: '',
+          TokenTransfer: '',
+          Value: '',
+          GasLimit: '',
+          GasUsedByTxn: '',
+          GasPrice: '',
+          ActualTxCostFee: '',
+          NoncePosition: '',
+          InputData: '',
+    };
+  }
+
   state = { loggedIn: null };
 
   componentWillMount() {
@@ -25,6 +56,33 @@ class EthExplorer extends Component {
         this.setState({ loggedIn: false });
       }
     });
+  }
+
+  componentDidMount() {
+    api
+      .twoApi()
+      .then(res => {
+        this.setState({
+          TxHash: res.TxHash,
+          Status: res.Status,
+          BlockHeight: res.BlockHeight,
+          TimeStamp: res.TimeStamp,
+          From: res.From,
+          For: res.For,
+          TokenTransfer: res.TokenTransfer,
+          Value: res.Value,
+          GasLimit: res.GasLimit,
+          GasUsedByTxn: res.GasUsedByTxn,
+          GasPrice: res.GasPrice,
+          ActualTxCostFee: res.ActualTxCostFee,
+          NoncePosition: res.NoncePosition,
+          InputData: res.InputData,
+          
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   render() {
@@ -38,57 +96,73 @@ class EthExplorer extends Component {
                 </Text>
                 <Text style={[styles.bold]}>{"\n"}TxHash: </Text>
                 <Text>
-                  0xfe3848c051023e29cc62843e090e5a5b849ec6eb8ad98bfc8e28af2551116701{
-                    "\n"
-                  }
+                  {this.state.TxHash}
+                  {"\n"}
                 </Text>
                 <Text style={[styles.bold]}>TxReceipt Status:</Text>
-                <Text style={[styles.Success]}>Success{"\n"}</Text>
+                <Text style={[styles.Success]}>
+                  {this.state.Status}
+                  {"\n"}
+                </Text>
                 <Text style={[styles.bold]}>Block Height: </Text>
-                <Text>3484864 (5797 block confirmations){"\n"}</Text>
+                <Text>
+                  {this.state.BlockHeight}
+                  {"\n"}
+                </Text>
                 <Text style={[styles.bold]}>TimeStamp: </Text>
                 <Text>
-                  23 hrs 43 mins ago (Jun-21-2018 09:57:07 PM +UTC){
-                    "\n"
-                  }
+                  {this.state.TimeStamp}
+                  {"\n"}
                 </Text>
                 <Text style={[styles.bold]}>From: </Text>
                 <Text>
-                  0x9c3e099eb426e48504b7dedfea66824668ec87e0{"\n"}
+                  {this.state.From}
+                  {"\n"}
                 </Text>
                 <Text style={[styles.bold]}>To: </Text>
                 <Text>
-                  Contract 0x16c31228f6413043ac0e41e9617394906c7a21ac{
-                    "\n"
-                  }
+                  {this.state.To}
+                  {"\n"}
                 </Text>
                 <Text style={[styles.bold]}>Token Transfer: </Text>
                 <Text>
                   {" "}
-                  2 ERC20 (Twoken Token) from 0x00000000000000... to
-                  0x9c3e099eb426e4{"\n"}
+                  {this.state.TokenTransfer}
+                  {"\n"}
                 </Text>
                 <Text style={[styles.bold]}>Value: </Text>
-                <Text>0 Ether ($0.00){"\n"}</Text>
+                <Text>
+                  {this.state.Value}
+                  {"\n"}
+                </Text>
                 <Text style={[styles.bold]}>Gas Limit: </Text>
-                <Text>320854{"\n"}</Text>
+                <Text>
+                  {this.state.GasLimit}
+                  {"\n"}
+                </Text>
                 <Text style={[styles.bold]}>Gas Used By Txn: </Text>
-                <Text>213903{"\n"}</Text>
+                <Text>
+                  {this.state.GasUsedByTxn}
+                  {"\n"}
+                </Text>
                 <Text style={[styles.bold]}>Gas Price: </Text>
-                <Text>0.000000001 Ether (1 Gwei){"\n"}</Text>
+                <Text>
+                  {this.state.GasPrice}
+                  {"\n"}
+                </Text>
                 <Text style={[styles.bold]}>Actual Tx Cost/Fee: </Text>
-                <Text>0.000213903 Ether ($0.000000){"\n"}</Text>
+                <Text>
+                  {this.state.ActualTxCostFee}
+                  {"\n"}
+                </Text>
                 <Text style={[styles.bold]}>Nonce & [Position]: </Text>
                 <Text>
                   {" "}
-                  6 | {10}
+                  {this.state.NoncePosition}
                   {"\n"}
                 </Text>
                 <Text style={[styles.bold]}>Input Data: </Text>
-                <Text>
-                  /-ë@9Keepall 45 year: 2016, manufacturer: LV,
-                  date:6/21/2018
-                </Text>
+                <Text>{this.state.InputData}</Text>
                 <View style={{ width: 500, height: 30, backgroundColor: "white" }} />
               </View>
             </View>
