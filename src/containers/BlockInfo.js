@@ -75,9 +75,7 @@ export class BlockInfo extends Component {
                    <View style={{ width: 500, height: 30, backgroundColor: "white" }} />
                    <Text style={[styles.TopText, styles.all, styles.grayText]}>
                      Item Transfered to You
-                     <Text style={[styles.gray, styles.date]}>
-                       {" "}
-                       {this.state.DateToYou}
+                     <Text style={[styles.gray, styles.date]}>                               {this.state.DateToYou}
                      </Text>
                    </Text>
                    <Text style={[styles.BottemText, styles.all, styles.grayText]}>
@@ -87,9 +85,7 @@ export class BlockInfo extends Component {
                    <View style={{ width: 500, height: 30, backgroundColor: "white" }} />
                    <Text style={[styles.TopText, styles.all, styles.grayText]}>
                      Item Transfered
-                     <Text style={[styles.gray, styles.date]}>
-                       {" "}
-                       3/15/2017
+                     <Text style={[styles.gray, styles.date]}>                                          {this.state.DateTrans}
                      </Text>
                    </Text>
                    <Text
@@ -108,9 +104,7 @@ export class BlockInfo extends Component {
                    </Text>
                    <Text style={[styles.TopText, styles.all, styles.grayText]}>
                      Item Created
-                     <Text style={[styles.gray, styles.date]}>
-                       {" "}
-                       {this.state.DateCreated}
+                     <Text style={[styles.gray, styles.date]}>                                              {this.state.DateCreated}
                      </Text>
                    </Text>
                    <Text style={[styles.BottemText, styles.all, styles.grayText]}>

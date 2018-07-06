@@ -82,7 +82,11 @@ class ProdPage extends Component {
 
                    <View style={{ width: 500, height: 5, backgroundColor: "white" }} />
                    <Text
-                     style={[styles.blue, styles.newProd, styles.all]}
+                     style={[
+                       styles.blue,
+                       styles.newProd,
+                       styles.all
+                     ]}
                    >
                      NEW PRODUCT
                    </Text>
@@ -90,7 +94,11 @@ class ProdPage extends Component {
                      {this.state.prodTitle}
                    </Text>
                    <Text
-                     style={[styles.subTitle, styles.gray, styles.all]}
+                     style={[
+                       styles.subTitle,
+                       styles.gray,
+                       styles.all
+                     ]}
                    >
                      {this.state.subTitle}
                    </Text>
@@ -99,10 +107,7 @@ class ProdPage extends Component {
                    <View style={{ width: 500, height: 10, backgroundColor: "white" }} />
                    <Text style={[styles.recentAdd, styles.bold, styles.all]}>
                      Recent Additions
-                     <Text style={[styles.seeAll, styles.blue]}>
-                       {" "}
-                       See All
-                     </Text>
+                     <Text style={[styles.seeAll, styles.blue]}>                         See All</Text>
                      <View style={{ width: 500, height: 5, backgroundColor: "white" }} />
                    </Text>
                    <View style={{ flexDirection: "row" }}>
@@ -111,11 +116,7 @@ class ProdPage extends Component {
                      </View>
                      <Text style={[styles.rat]}>
                        {"\n"}Jaeger-LeCoultre Polaris {"\n"}
-                       <Text style={[styles.rast]}>
-                         Chronograph, PINK GOLD <Text
-                           style={[styles.views]}
-                         >
-                           {" "}
+                       <Text style={[styles.rast]}>Chronograph, PINK GOLD                 <Text style={[styles.views]}>
                            View{" "}
                          </Text>
                          {"\n"}
@@ -129,7 +130,7 @@ class ProdPage extends Component {
                      <Text style={[styles.rat]}>
                        {"\n"} Hermes Birkin {"\n"}
                        <Text style={[styles.rast]}>
-                         30cm Craie Epsom Birkin <Text
+                         30cm Craie Epsom Birkin                 <Text
                            style={[styles.views]}
                          >
                            {" "}
@@ -146,9 +147,7 @@ class ProdPage extends Component {
                      <Text style={[styles.rat]}>
                        {"\n"}Louis Vuitton / Supreme {"\n"}
                        <Text style={[styles.rast]}>
-                         Christopher Backpack PM <Text
-                           style={[styles.views]}
-                         >
+                         Christopher Backpack PM                <Text style={[styles.views]}>
                            {" "}
                            View{" "}
                          </Text>
