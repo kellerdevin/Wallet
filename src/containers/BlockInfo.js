@@ -3,6 +3,7 @@ import { AppRegistry, StyleSheet, Text, TouchableOpacity, View, Image, Navigator
 import ProdPage from './ProdPage'
 import { connect } from 'react-redux';
 import firebase from "firebase";
+import api from "../util/routes/api";
 import { Header, Button, Spinner } from "../components/common/";
 import LoginForm from "../components/LoginForm";
 // state map
@@ -11,8 +12,26 @@ function mapStateToProps(state) {
 }
 
 export class BlockInfo extends Component {
-     state = { loggedIn: null };
-         
+         state = { loggedIn: null };
+         constructor(props) {
+           super(props);
+           this.state = { prodTitle: "", subTitle: "", prodimg:"", Hash: "", toYou: "", FromTrans: "", TextTo: "", DateToYou: "", DateTrans: "", DateCreated: "", Merchant: "" };
+         }
+
+         componentDidMount() {
+           api
+             .twoApi()
+             .then(res => {
+               this.setState({ prodTitle: res.prodTitle, subTitle: res.subTitle, 
+                prodimg: res.prodimg, Hash: res.Hash, toYou: res.toYou, 
+                FromTrans: res.FromTrans, TextTo: res.FromTrans, DateToYou: res.FromTrans, TextTo: res.TextTo, DateToYou: res.DateToYou, DateTrans: res.DateTrans, DateCreated: res.DateCreated, Merchant: res.Merchant
+               });
+             })
+             .catch(error => {
+               console.error(error);
+             });
+         }
+
          componentWillMount() {
            firebase.auth().onAuthStateChanged(user => {
              if (user) {
@@ -29,10 +48,10 @@ export class BlockInfo extends Component {
                return <View style={{ backgroundColor: "white" }}>
                    <View style={{ width: 500, height: 30 }} />
                    <Text style={[styles.header, styles.all]}>
-                     2016 Louis Vuitton Keepall
+                     {this.state.prodTitle}
                    </Text>
                    <Text style={[styles.subtitle, styles.all]}>
-                     Classic Monogram <Text style={[styles.transfer]}>
+                     {this.state.subTitle} <Text style={[styles.transfer]}>
                        {" "}
                        Transfer{" "}
                      </Text>
@@ -46,7 +65,7 @@ export class BlockInfo extends Component {
                      <Text style={[styles.blue]}> view</Text>
                    </Text>
                    <Text style={[styles.all, styles.hash]}>
-                     Hash: 0x5e4bb521e0b6c18bd40674474f4b1527...
+                     Hash: {this.state.Hash}
                    </Text>
                    <View style={{ width: 500, height: 10, backgroundColor: "white" }} />
                    <View style={{ width: 500, height: 2, backgroundColor: "#C9C9C9" }} />
@@ -58,11 +77,11 @@ export class BlockInfo extends Component {
                      Item Transfered to You
                      <Text style={[styles.gray, styles.date]}>
                        {" "}
-                       4/1/2018
+                       {this.state.DateToYou}
                      </Text>
                    </Text>
                    <Text style={[styles.BottemText, styles.all, styles.grayText]}>
-                     From: 0xb35f68a5d0da29ds2...
+                     From: {this.state.FromTrans}
                      <Text style={[styles.more]}> more</Text>
                    </Text>
                    <View style={{ width: 500, height: 30, backgroundColor: "white" }} />
@@ -80,10 +99,10 @@ export class BlockInfo extends Component {
                        styles.grayText
                      ]}
                    >
-                     From: 0xb35f68a5d0da29ds2...
+                     From: {this.state.FromTrans}
                    </Text>
                    <Text style={[styles.BottemText, styles.all, styles.grayText]}>
-                     To: 0x6bd2bd4fa7ec27ef0...
+                     To: {this.state.toYou}
                      <Text style={[styles.more]}> more</Text>
                      <View style={{ width: 500, height: 30, backgroundColor: "white" }} />
                    </Text>
@@ -91,11 +110,11 @@ export class BlockInfo extends Component {
                      Item Created
                      <Text style={[styles.gray, styles.date]}>
                        {" "}
-                       4/26/2016
+                       {this.state.DateCreated}
                      </Text>
                    </Text>
                    <Text style={[styles.BottemText, styles.all, styles.grayText]}>
-                     Merchant: Louis Vuitton
+                     Merchant: {this.state.Merchant}
                      <Text style={[styles.more]}> more</Text>
                    </Text>
                    <View style={{ width: 500, height: 30, backgroundColor: "white" }} />

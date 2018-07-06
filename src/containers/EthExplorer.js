@@ -121,7 +121,7 @@ class EthExplorer extends Component {
                 </Text>
                 <Text style={[styles.bold]}>To: </Text>
                 <Text>
-                  {this.state.To}
+                  {this.state.For}
                   {"\n"}
                 </Text>
                 <Text style={[styles.bold]}>Token Transfer: </Text>
